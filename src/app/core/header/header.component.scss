@@ -1,0 +1,36 @@
+// Variables
+@import "../../../styles-variables.scss";
+
+app-header {
+  .header {
+    height: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 100px;
+
+    .logo-container {
+      cursor: pointer;
+
+      img {
+        width: 32px;
+      }
+    }
+
+    .link-container {
+      a {
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        color: $font-color-primary;
+        text-decoration: none;
+        margin-left: 20px;
+        transition: color 0.5s;
+
+        &:hover {
+          color: $font-color-secondary;
+        }
+      }
+    }
+  }
+}

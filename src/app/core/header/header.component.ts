@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { IRoute } from 'src/app/shared/interfaces/route.interface';
 import { routes } from '../../shared/constants/routes.const';
 
@@ -6,6 +6,7 @@ import { routes } from '../../shared/constants/routes.const';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent implements OnInit {
   routes: Array<IRoute>;
