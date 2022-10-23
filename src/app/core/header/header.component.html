@@ -1,1 +1,8 @@
-<p>header works!</p>
+<div>
+  <div></div>
+  <div>
+    <span *ngFor="let route of routes">
+      <a [routerLink]="'/' + route.path">{{ route.name }}</a>
+    </span>
+  </div>
+</div>
