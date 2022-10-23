@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { api } from 'src/app/shared/constants/api.const';
@@ -11,9 +11,11 @@ import { IMoviesDataResponse } from 'src/app/shared/interfaces/movies-data.inter
 export class MoviesService {
   constructor(private http: HttpClient) {}
 
-  getPopularMovies(): Observable<IMoviesDataResponse> {
+  getPopularMovies(page?: any): Observable<IMoviesDataResponse> {
+    let params = new HttpParams().set('page', page);
     return this.http.get<IMoviesDataResponse>(
-      endpoints.baseUrl + endpoints.popularMoviesUrl + '?api_key=' + api.apiKey
+      endpoints.baseUrl + endpoints.popularMoviesUrl + '?api_key=' + api.apiKey,
+      { params: params }
     );
   }
 }
