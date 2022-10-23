@@ -1,6 +1,5 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { MoviesComponent } from './movies/movies.component';
 
 const routes: Routes = [
@@ -11,7 +10,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [],
-  imports: [CommonModule],
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
 export class MoviesRoutingModule {}
