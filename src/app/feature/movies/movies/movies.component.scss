@@ -1,0 +1,21 @@
+app-movies {
+  .movie-list-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .movie-container {
+    margin: 0 20px;
+
+    .movie-poster-container {
+      img {
+        max-width: 150px;
+      }
+    }
+
+    .movie-title {
+      max-width: 150px;
+    }
+  }
+}
