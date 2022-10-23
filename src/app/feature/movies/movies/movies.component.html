@@ -1,18 +1,34 @@
-<div class="movie-list-container">
-  <div *ngIf="responseMessage">{{ responseMessage }}</div>
-  <div *ngFor="let movie of popularMovies" class="movie-container">
-    <div class="movie-poster-container">
-      <img
-        *ngIf="movie?.poster_path"
-        [src]="posterBaseUrl + movie.poster_path"
-      />
-      <img
-        *ngIf="!movie?.poster_path"
-        src="../../../../assets/poster-placeholder.png"
-      />
+<div>
+  <app-loader *ngIf="isLoading"></app-loader>
+  <div *ngIf="!isLoading" class="content-wrapper">
+    <div *ngIf="responseMessage">{{ responseMessage }}</div>
+    <div class="movie-list-container">
+      <div
+        *ngFor="let movie of popularMovies | paginate: paginationConfig"
+        class="movie-container"
+      >
+        <div class="movie-poster-container">
+          <img
+            *ngIf="movie?.poster_path"
+            [src]="posterBaseUrl + movie.poster_path"
+          />
+          <img
+            *ngIf="!movie?.poster_path"
+            src="../../../../assets/poster-placeholder.png"
+          />
+        </div>
+        <div class="movie-title">{{ movie.title }}</div>
+        <div>{{ movie.release_date }}</div>
+        <div>{{ movie.popularity }}</div>
+      </div>
     </div>
-    <div class="movie-title">{{ movie.title }}</div>
-    <div>{{ movie.release_date }}</div>
-    <div>{{ movie.popularity }}</div>
+    <div class="pagination-container">
+      <pagination-controls
+        class="paginator"
+        previousLabel=""
+        nextLabel=""
+        (pageChange)="onPageChange($event)"
+      ></pagination-controls>
+    </div>
   </div>
 </div>
