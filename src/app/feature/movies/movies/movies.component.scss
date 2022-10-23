@@ -9,17 +9,38 @@ app-movies {
   }
 
   .movie-container {
-    margin: 0 20px;
+    margin: 0 20px 20px 20px;
 
     .movie-poster-container {
+      cursor: pointer;
+
       img {
-        max-width: 150px;
+        max-width: 180px;
+        border-radius: 4px;
+        transition: transform 0.5s ease;
+
+        &:hover {
+          transform: scale(1.1);
+        }
       }
     }
 
     .movie-title {
       max-width: 150px;
+      font-weight: bold;
       color: $font-color-primary;
+      margin-top: 10px;
+    }
+
+    .movie-release-date,
+    .movie-popularity {
+      font-size: 13px;
+      color: $font-color-secondary;
+      margin-top: 4px;
+
+      span {
+        font-weight: bold;
+      }
     }
   }
 }

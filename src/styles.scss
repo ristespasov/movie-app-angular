@@ -45,6 +45,7 @@ body {
         font-weight: 400;
         color: $font-color-secondary;
         padding: 0;
+        transition: background-color 0.5s;
 
         &:hover {
           background-color: $background-color-tertiary;

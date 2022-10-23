@@ -18,8 +18,12 @@
           />
         </div>
         <div class="movie-title">{{ movie.title }}</div>
-        <div>{{ movie.release_date }}</div>
-        <div>{{ movie.popularity }}</div>
+        <div class="movie-release-date">
+          Release date: <span>{{ movie.release_date }}</span>
+        </div>
+        <div class="movie-popularity">
+          Popularity: <span>{{ movie.popularity }}</span>
+        </div>
       </div>
     </div>
     <div class="pagination-container">
