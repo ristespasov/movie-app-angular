@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { api } from 'src/app/shared/constants/api.const';
@@ -23,6 +23,24 @@ export class MoviesService {
   getMovieDetails(id: string): Observable<IMovieDetails> {
     return this.http.get<IMovieDetails>(
       endpoints.baseUrl + id + '?api_key=' + api.apiKey
+    );
+  }
+
+  rateMovie(id: string, rateValue: number): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json;charset=utf-8',
+    });
+    const body = { value: rateValue };
+    const options = { headers: headers };
+    return this.http.post<any>(
+      endpoints.baseUrl +
+        id +
+        '/' +
+        endpoints.rating +
+        '?api_key=' +
+        api.apiKey,
+      body,
+      options
     );
   }
 }
