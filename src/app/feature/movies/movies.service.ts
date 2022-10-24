@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { api } from 'src/app/shared/constants/api.const';
 import { endpoints } from 'src/app/shared/constants/endpoints.const';
 import { IMovieDetails } from 'src/app/shared/interfaces/movie-details.interface';
-import { IMoviesDataResponse } from 'src/app/shared/interfaces/movies-data.interface';
+import { IMoviesData } from 'src/app/shared/interfaces/movies-data.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -12,9 +12,9 @@ import { IMoviesDataResponse } from 'src/app/shared/interfaces/movies-data.inter
 export class MoviesService {
   constructor(private http: HttpClient) {}
 
-  getPopularMovies(page?: any): Observable<IMoviesDataResponse> {
+  getPopularMovies(page?: any): Observable<IMoviesData> {
     let params = new HttpParams().set('page', page);
-    return this.http.get<IMoviesDataResponse>(
+    return this.http.get<IMoviesData>(
       endpoints.baseUrl + endpoints.popularMoviesUrl + '?api_key=' + api.apiKey,
       { params: params }
     );

@@ -1,8 +1,8 @@
-import { IMovieResponse } from './movie.interface';
+import { IMovie } from './movie.interface';
 
-export interface IMoviesDataResponse {
+export interface IMoviesData {
   page: number;
-  results: Array<IMovieResponse>;
+  results: Array<IMovie>;
   total_pages: number;
   total_results: number;
 }

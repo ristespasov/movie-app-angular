@@ -3,7 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject, switchMap, takeUntil } from 'rxjs';
 import { endpoints } from 'src/app/shared/constants/endpoints.const';
 import { routes } from 'src/app/shared/constants/routes.const';
-import { IMovieResponse } from 'src/app/shared/interfaces/movie.interface';
+import { IMovie } from 'src/app/shared/interfaces/movie.interface';
 import { PaginationConfigModel } from 'src/app/shared/models/pagination.model';
 import { MoviesService } from '../movies.service';
 
@@ -18,7 +18,7 @@ export class MoviesComponent implements OnInit {
   isLoading = false;
   posterBaseUrl: string = endpoints.posterbaseUrl;
   responseMessage: string;
-  popularMovies: Array<IMovieResponse>;
+  popularMovies: Array<IMovie>;
   paginationConfig: PaginationConfigModel;
   currentPageNumber: number;
   queryPageNumber: number;

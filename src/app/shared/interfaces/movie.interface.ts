@@ -1,4 +1,4 @@
-export interface IMovieResponse {
+export interface IMovie {
   adult: boolean;
   backdrop_path: string;
   id: number;
