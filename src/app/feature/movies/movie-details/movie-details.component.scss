@@ -7,14 +7,36 @@ app-movie-details {
     justify-content: space-between;
     color: $font-color-primary;
 
-    .movie-poster-container {
-      img {
-        max-width: 300px;
-        border-radius: 4px;
+    .movie-details-section-left {
+      display: flex;
+      flex-direction: column;
+
+      .movie-poster-container {
+        img {
+          max-width: 300px;
+          border-radius: 4px;
+        }
+      }
+
+      ngb-rating {
+        margin-top: 12px;
+      }
+
+      .movie-rate-button {
+        margin-top: 12px;
+
+        button {
+          width: 100%;
+          height: 42px;
+          background-color: $background-color-secondary;
+          border-radius: 4px;
+          font-weight: bold;
+          color: $font-color-primary;
+        }
       }
     }
 
-    .movie-text-details-container {
+    .movie-details-section-right {
       line-height: 32px;
       margin-left: 60px;
 
