@@ -1,4 +1,7 @@
 import { IGenre } from './genre.interface';
+import { IProductionCompany } from './production-company.interface';
+import { IProductionCountry } from './production-country.interface';
+import { ISpokenLanguage } from './spoken-language.interface';
 
 export interface IMovieDetails {
   adult: boolean;
@@ -14,12 +17,12 @@ export interface IMovieDetails {
   overview: string;
   popularity: number;
   poster_path: string;
-  production_companies: Array<Object>;
-  production_countries: Array<Object>;
+  production_companies: Array<IProductionCompany>;
+  production_countries: Array<IProductionCountry>;
   release_date: string;
   revenue: number;
   runtime: number;
-  spoken_languages: Array<Object>;
+  spoken_languages: Array<ISpokenLanguage>;
   status: string;
   tagline: string;
   title: string;
