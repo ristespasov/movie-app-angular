@@ -3,6 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { endpoints } from 'src/app/shared/constants/endpoints.const';
 import { IGenre } from 'src/app/shared/interfaces/genre.interface';
 import { IMovieDetails } from 'src/app/shared/interfaces/movie-details.interface';
+import { RatingConfigModel } from 'src/app/shared/models/rating.model';
 import { RuntimeModel } from 'src/app/shared/models/runtime.model';
 import { UtilsService } from 'src/app/shared/utils/utils.service';
 import { MoviesService } from '../movies.service';
@@ -23,6 +24,7 @@ export class MovieDetailsComponent implements OnInit {
   runtimeFormatted: RuntimeModel;
   genres: Array<IGenre>;
   ratingFormatted: number;
+  ratingConfig: RatingConfigModel;
 
   constructor(
     private moviesService: MoviesService,
@@ -31,6 +33,10 @@ export class MovieDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.ratingConfig = {
+      selected: 0,
+      hovered: 0,
+    };
     this.route.params.subscribe((params: Params) => {
       this.id = params['id'];
       this.getMovieDetails(this.id);
@@ -63,5 +69,24 @@ export class MovieDetailsComponent implements OnInit {
         this.isLoading = false;
       },
     });
+  }
+
+  onMovieRate() {
+    if (this.ratingConfig.selected) {
+      this.moviesService
+        .rateMovie(this.id, this.ratingConfig.selected)
+        .subscribe({
+          next: (response) => {
+            console.log(response);
+            console.log(this.ratingConfig.selected);
+          },
+          error: (err) => {
+            console.log(err);
+          },
+          complete: () => {
+            this.isLoading = false;
+          },
+        });
+    }
   }
 }

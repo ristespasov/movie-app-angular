@@ -7,17 +7,29 @@
       {{ responseMessage }}
     </div>
     <div *ngIf="!responseMessage" class="movie-details-container">
-      <div class="movie-poster-container">
-        <img
-          *ngIf="movieDetails?.poster_path"
-          [src]="posterBaseUrl + movieDetails.poster_path"
-        />
-        <img
-          *ngIf="!movieDetails?.poster_path"
-          src="../../../../assets/poster-placeholder.png"
-        />
+      <div class="movie-details-section-left">
+        <div class="movie-poster-container">
+          <img
+            *ngIf="movieDetails?.poster_path"
+            [src]="posterBaseUrl + movieDetails.poster_path"
+          />
+          <img
+            *ngIf="!movieDetails?.poster_path"
+            src="../../../../assets/poster-placeholder.png"
+          />
+        </div>
+        <ngb-rating
+          [(rate)]="ratingConfig.selected"
+          (hover)="ratingConfig.hovered = $event"
+          (leave)="ratingConfig.hovered = 0"
+        ></ngb-rating>
+        <app-button
+          (onClick)="onMovieRate()"
+          label="Rate movie"
+          class="movie-rate-button"
+        ></app-button>
       </div>
-      <div class="movie-text-details-container">
+      <div class="movie-details-section-right">
         <div class="movie-title-rating-container">
           <div class="movie-title">{{ movieDetails.title }}</div>
           <div class="movie-tmdb-rating-container">
@@ -29,7 +41,7 @@
               </div>
               <div class="movie-tmdb-rating-users">
                 <img src="../../../../assets/user.png" />
-                <span>{{ movieDetails.vote_count }}</span>
+                <span>{{ movieDetails.vote_count | valueSuffix: 1 }}</span>
               </div>
             </div>
           </div>
