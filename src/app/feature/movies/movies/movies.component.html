@@ -1,13 +1,20 @@
 <div>
-  <app-loader *ngIf="isLoading"></app-loader>
+  <div class="loader-container">
+    <app-loader *ngIf="isLoading"></app-loader>
+  </div>
   <div *ngIf="!isLoading" class="content-wrapper">
-    <div *ngIf="responseMessage">{{ responseMessage }}</div>
-    <div class="movie-list-container">
+    <div *ngIf="responseMessage" class="response-message">
+      {{ responseMessage }}
+    </div>
+    <div *ngIf="!responseMessage" class="movie-list-container">
       <div
         *ngFor="let movie of popularMovies | paginate: paginationConfig"
         class="movie-container"
       >
-        <div class="movie-poster-container">
+        <div
+          class="movie-poster-container"
+          (click)="onViewMovieDetails(movie.id)"
+        >
           <img
             *ngIf="movie?.poster_path"
             [src]="posterBaseUrl + movie.poster_path"

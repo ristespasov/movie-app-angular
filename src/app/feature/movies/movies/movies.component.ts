@@ -1,12 +1,8 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { switchMap } from 'rxjs';
+import { Subject, switchMap, takeUntil } from 'rxjs';
 import { endpoints } from 'src/app/shared/constants/endpoints.const';
+import { routes } from 'src/app/shared/constants/routes.const';
 import { IMovieResponse } from 'src/app/shared/interfaces/movie.interface';
 import { PaginationConfigModel } from 'src/app/shared/models/pagination.model';
 import { MoviesService } from '../movies.service';
@@ -18,6 +14,7 @@ import { MoviesService } from '../movies.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class MoviesComponent implements OnInit {
+  private destroy$ = new Subject<void>();
   isLoading = false;
   posterBaseUrl: string = endpoints.posterbaseUrl;
   responseMessage: string;
@@ -29,11 +26,19 @@ export class MoviesComponent implements OnInit {
   constructor(
     private moviesService: MoviesService,
     private router: Router,
-    private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef
+    private route: ActivatedRoute
   ) {}
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.unsubscribe();
+  }
+
   ngOnInit(): void {
+    this.getPopularMovies();
+  }
+
+  getPopularMovies() {
     this.isLoading = true;
     this.route.queryParams
       .pipe(
@@ -41,7 +46,8 @@ export class MoviesComponent implements OnInit {
           this.moviesService.getPopularMovies(
             (this.queryPageNumber = params?.['page'])
           )
-        )
+        ),
+        takeUntil(this.destroy$)
       )
       .subscribe({
         next: (response) => {
@@ -53,8 +59,6 @@ export class MoviesComponent implements OnInit {
             currentPage: this.queryPageNumber,
             totalItems: response.total_pages,
           };
-          this.cdr.markForCheck();
-          console.log(response);
         },
         error: (err) => {
           this.isLoading = false;
@@ -82,5 +86,9 @@ export class MoviesComponent implements OnInit {
   onPageChange(event: any) {
     this.currentPageNumber = event;
     this.setPageQueryParam(this.currentPageNumber);
+  }
+
+  onViewMovieDetails(id: number) {
+    this.router.navigate([routes[0].path, id]);
   }
 }
