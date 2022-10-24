@@ -1,1 +1,68 @@
-<p>movie-details works!</p>
+<div>
+  <div class="loader-container">
+    <app-loader *ngIf="isLoading"></app-loader>
+  </div>
+  <div *ngIf="!isLoading" class="content-wrapper">
+    <div *ngIf="responseMessage" class="response-message">
+      {{ responseMessage }}
+    </div>
+    <div *ngIf="!responseMessage" class="movie-details-container">
+      <div class="movie-poster-container">
+        <img
+          *ngIf="movieDetails?.poster_path"
+          [src]="posterBaseUrl + movieDetails.poster_path"
+        />
+        <img
+          *ngIf="!movieDetails?.poster_path"
+          src="../../../../assets/poster-placeholder.png"
+        />
+      </div>
+      <div class="movie-text-details-container">
+        <div class="movie-title-rating-container">
+          <div class="movie-title">{{ movieDetails.title }}</div>
+          <div class="movie-tmdb-rating-container">
+            <img src="../../../../assets/tmdb-logo.png" />
+            <div class="movie-tmdb-rating">
+              <div class="movie-tmdb-rating-score">
+                <img src="../../../../assets/star.png" />
+                <span>{{ ratingFormatted }}</span>
+              </div>
+              <div class="movie-tmdb-rating-users">
+                <img src="../../../../assets/user.png" />
+                <span>{{ movieDetails.vote_count }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          *ngIf="movieDetails.original_language !== 'en'"
+          class="movie-original-title"
+        >
+          Original title: <span>{{ movieDetails.original_title }}</span>
+        </div>
+        <div class="year-runtime-container">
+          <span style="margin-right: 2px">{{ releaseDate.getFullYear() }}</span>
+          <span style="margin: 0 4px">&#8226;</span>
+          <span>
+            <span *ngIf="runtimeFormatted.hours > 0" style="margin-right: 2px">
+              {{ runtimeFormatted.hours }}h
+            </span>
+            <span *ngIf="runtimeFormatted.minutes > 0">
+              {{ runtimeFormatted.minutes }}m
+            </span>
+          </span>
+        </div>
+        <div class="genre-container">
+          <span *ngFor="let genre of genres">
+            <app-badge
+              [label]="genre.name"
+              size="medium"
+              color="light"
+            ></app-badge>
+          </span>
+        </div>
+        <div class="movie-overview">{{ movieDetails.overview }}</div>
+      </div>
+    </div>
+  </div>
+</div>
