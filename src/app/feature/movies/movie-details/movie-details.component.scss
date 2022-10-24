@@ -1,0 +1,30 @@
+// Variables
+@import "../../../../styles-variables.scss";
+
+app-movie-details {
+  .movie-details-container {
+    display: flex;
+    justify-content: space-between;
+
+    .movie-poster-container {
+      img {
+        max-width: 300px;
+      }
+    }
+
+    .movie-text-details-container {
+      margin-left: 60px;
+
+      .movie-title {
+        font-size: 32px;
+        font-weight: bold;
+        color: $font-color-primary;
+      }
+
+      .movie-overview {
+        color: $font-color-secondary;
+        line-height: 24px;
+      }
+    }
+  }
+}
