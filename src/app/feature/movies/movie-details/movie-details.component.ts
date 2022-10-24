@@ -3,6 +3,9 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { endpoints } from 'src/app/shared/constants/endpoints.const';
 import { IGenre } from 'src/app/shared/interfaces/genre.interface';
 import { IMovieDetails } from 'src/app/shared/interfaces/movie-details.interface';
+import { IProductionCompany } from 'src/app/shared/interfaces/production-company.interface';
+import { IProductionCountry } from 'src/app/shared/interfaces/production-country.interface';
+import { ISpokenLanguage } from 'src/app/shared/interfaces/spoken-language.interface';
 import { RatingConfigModel } from 'src/app/shared/models/rating.model';
 import { RuntimeModel } from 'src/app/shared/models/runtime.model';
 import { UtilsService } from 'src/app/shared/utils/utils.service';
@@ -23,6 +26,12 @@ export class MovieDetailsComponent implements OnInit {
   releaseDate: Date;
   runtimeFormatted: RuntimeModel;
   genres: Array<IGenre>;
+  productionCompanies: Array<IProductionCompany>;
+  productionCompaniesNames: Array<string> = [];
+  productionCountries: Array<IProductionCountry>;
+  productionCountriesNames: Array<string> = [];
+  spokenLanguages: Array<ISpokenLanguage>;
+  spokenLanguagesNames: Array<string> = [];
   ratingFormatted: number;
   ratingConfig: RatingConfigModel;
 
@@ -55,11 +64,23 @@ export class MovieDetailsComponent implements OnInit {
             this.movieDetails.runtime
           );
         this.genres = this.movieDetails.genres;
+        this.productionCompanies = this.movieDetails.production_companies;
+        this.productionCompanies.map((element) => {
+          this.productionCompaniesNames.push(element.name);
+        });
+        this.productionCountries = this.movieDetails.production_countries;
+        this.productionCountries.map((element) => {
+          this.productionCountriesNames.push(element.name);
+        });
+        this.spokenLanguages = this.movieDetails.spoken_languages;
+        this.spokenLanguages.map((element) => {
+          this.spokenLanguagesNames.push(element.english_name);
+        });
+        console.log(this.spokenLanguages);
         this.ratingFormatted = this.utilsService.roundValue(
           this.movieDetails.vote_average,
           1
         );
-        console.log(this.movieDetails);
       },
       error: (err) => {
         this.isLoading = false;

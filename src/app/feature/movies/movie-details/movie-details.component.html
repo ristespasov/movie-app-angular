@@ -41,7 +41,7 @@
               </div>
               <div class="movie-tmdb-rating-users">
                 <img src="../../../../assets/user.png" />
-                <span>{{ movieDetails.vote_count | valueSuffix: 1 }}</span>
+                <span>{{ movieDetails.vote_count | valueSuffix }}</span>
               </div>
             </div>
           </div>
@@ -74,6 +74,36 @@
           </span>
         </div>
         <div class="movie-overview">{{ movieDetails.overview }}</div>
+        <div class="movie-additional-details-container">
+          <div class="movie-additional-details">
+            <span class="movie-additional-details-label">
+              Production companies
+            </span>
+            <span class="movie-additional-details-description">
+              {{ productionCompaniesNames.join(", ") }}
+            </span>
+          </div>
+          <div class="movie-additional-details">
+            <span class="movie-additional-details-label">
+              Production countries
+            </span>
+            <span class="movie-additional-details-description">
+              {{ productionCountriesNames.join(", ") }}
+            </span>
+          </div>
+          <div class="movie-additional-details">
+            <span class="movie-additional-details-label">Spoken languages</span>
+            <span class="movie-additional-details-description">
+              {{ spokenLanguagesNames.join(", ") }}
+            </span>
+          </div>
+          <div class="movie-additional-details">
+            <span class="movie-additional-details-label">Status</span>
+            <span class="movie-additional-details-description">
+              {{ movieDetails.status }}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
