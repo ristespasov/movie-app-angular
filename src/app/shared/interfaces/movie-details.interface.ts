@@ -1,9 +1,11 @@
+import { IGenre } from './genre.interface';
+
 export interface IMovieDetails {
   adult: boolean;
   backdrop_path: string;
   belongs_to_collection: Object;
   budget: number;
-  genres: Array<Object>;
+  genres: Array<IGenre>;
   homepage: string;
   id: number;
   imdb_id: string;
