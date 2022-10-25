@@ -4,7 +4,7 @@ import { PageNotFoundComponent } from './core/page-not-found/page-not-found.comp
 
 const routes: Routes = [
   {
-    path: 'auth',
+    path: 'login',
     loadChildren: () =>
       import('./feature/auth/auth.module').then((m) => m.AuthModule),
   },
