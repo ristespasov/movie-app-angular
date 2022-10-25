@@ -76,7 +76,6 @@ export class MovieDetailsComponent implements OnInit {
         this.spokenLanguages.map((element) => {
           this.spokenLanguagesNames.push(element.english_name);
         });
-        console.log(this.spokenLanguages);
         this.ratingFormatted = this.utilsService.roundValue(
           this.movieDetails.vote_average,
           1
