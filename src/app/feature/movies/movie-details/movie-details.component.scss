@@ -19,7 +19,11 @@ app-movie-details {
       }
 
       ngb-rating {
-        margin-top: 12px;
+        margin: 12px 0;
+
+        span {
+          font-size: 36px;
+        }
       }
 
       .movie-rate-button {
@@ -30,13 +34,49 @@ app-movie-details {
           height: 42px;
           background-color: $background-color-secondary;
           border-radius: 4px;
+          border: none;
           font-weight: bold;
           color: $font-color-primary;
         }
       }
     }
 
+    .movie-tmdb-rating-container-top,
+    .movie-tmdb-rating-container-bottom {
+      display: flex;
+      align-items: center;
+      img {
+        width: 48px;
+      }
+
+      .movie-tmdb-rating {
+        display: flex;
+        flex-direction: column;
+        line-height: 24px;
+
+        .movie-tmdb-rating-score,
+        .movie-tmdb-rating-users {
+          display: flex;
+          align-items: center;
+          img {
+            width: 16px;
+            margin: 0 4px 0 10px;
+          }
+        }
+        .movie-tmdb-rating-users {
+          span {
+            color: $font-color-secondary;
+          }
+        }
+      }
+    }
+
+    .movie-tmdb-rating-container-top {
+      display: none;
+    }
+
     .movie-details-section-right {
+      width: 100%;
       line-height: 32px;
       margin-left: 60px;
 
@@ -47,35 +87,6 @@ app-movie-details {
         .movie-title {
           font-size: 32px;
           font-weight: bold;
-        }
-
-        .movie-tmdb-rating-container {
-          display: flex;
-          align-items: center;
-          img {
-            width: 48px;
-          }
-
-          .movie-tmdb-rating {
-            display: flex;
-            flex-direction: column;
-            line-height: 24px;
-
-            .movie-tmdb-rating-score,
-            .movie-tmdb-rating-users {
-              display: flex;
-              align-items: center;
-              img {
-                width: 16px;
-                margin: 0 4px 0 10px;
-              }
-            }
-            .movie-tmdb-rating-users {
-              span {
-                color: $font-color-secondary;
-              }
-            }
-          }
         }
       }
 
@@ -111,6 +122,52 @@ app-movie-details {
             font-weight: bold;
           }
         }
+      }
+    }
+  }
+
+  /* MEDIA QUERY */
+  @media screen and (max-width: 912px) {
+    .movie-details-container {
+      flex-direction: column;
+
+      .movie-details-section-left {
+        flex-direction: row;
+        justify-content: space-between;
+
+        .movie-poster-container {
+          img {
+            max-width: 100px;
+          }
+        }
+
+        ngb-rating {
+          display: flex !important;
+
+          span {
+            font-size: 24px;
+          }
+        }
+
+        .movie-rate-button {
+          button {
+            width: 200px;
+          }
+        }
+      }
+
+      .movie-tmdb-rating-container-top {
+        display: flex;
+        img {
+          margin-left: auto;
+        }
+      }
+      .movie-tmdb-rating-container-bottom {
+        display: none;
+      }
+
+      .movie-details-section-right {
+        margin: 24px 0 0 0;
       }
     }
   }

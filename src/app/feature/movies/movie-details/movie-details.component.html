@@ -18,21 +18,42 @@
             src="../../../../assets/poster-placeholder.png"
           />
         </div>
-        <ngb-rating
-          [(rate)]="ratingConfig.selected"
-          (hover)="ratingConfig.hovered = $event"
-          (leave)="ratingConfig.hovered = 0"
-        ></ngb-rating>
-        <app-button
-          (onClick)="onMovieRate()"
-          label="Rate movie"
-          class="movie-rate-button"
-        ></app-button>
+        <div class="movie-rating-container">
+          <div class="movie-tmdb-rating-container-top">
+            <img src="../../../../assets/tmdb-logo.png" />
+            <div class="movie-tmdb-rating">
+              <div class="movie-tmdb-rating-score">
+                <img src="../../../../assets/star.png" />
+                <span>{{ ratingFormatted }}</span>
+              </div>
+              <div class="movie-tmdb-rating-users">
+                <img src="../../../../assets/user.png" />
+                <span>
+                  {{
+                    movieDetails.vote_count <= 1099
+                      ? (movieDetails.vote_count | valueSuffix)
+                      : (movieDetails.vote_count | valueSuffix: 1)
+                  }}
+                </span>
+              </div>
+            </div>
+          </div>
+          <ngb-rating
+            [(rate)]="ratingConfig.selected"
+            (hover)="ratingConfig.hovered = $event"
+            (leave)="ratingConfig.hovered = 0"
+          ></ngb-rating>
+          <app-button
+            (onClick)="onMovieRate()"
+            label="Rate movie"
+            class="movie-rate-button"
+          ></app-button>
+        </div>
       </div>
       <div class="movie-details-section-right">
         <div class="movie-title-rating-container">
           <div class="movie-title">{{ movieDetails.title }}</div>
-          <div class="movie-tmdb-rating-container">
+          <div class="movie-tmdb-rating-container-bottom">
             <img src="../../../../assets/tmdb-logo.png" />
             <div class="movie-tmdb-rating">
               <div class="movie-tmdb-rating-score">
