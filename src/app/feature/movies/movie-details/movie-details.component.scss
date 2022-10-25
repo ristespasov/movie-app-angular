@@ -131,6 +131,11 @@ app-movie-details {
     }
   }
 
+  ngb-toast {
+    position: absolute;
+    width: 326px !important;
+  }
+
   /* MEDIA QUERY */
   @media screen and (max-width: 912px) {
     .movie-details-container {

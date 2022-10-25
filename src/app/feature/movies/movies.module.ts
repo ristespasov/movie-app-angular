@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbRatingModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { CoreModule } from 'src/app/core/core.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
@@ -15,6 +15,7 @@ import { MoviesComponent } from './movies/movies.component';
     SharedModule,
     MoviesRoutingModule,
     NgbRatingModule,
+    NgbToastModule,
   ],
 })
 export class MoviesModule {}

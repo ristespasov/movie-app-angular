@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { endpoints } from 'src/app/shared/constants/endpoints.const';
 import { IGenre } from 'src/app/shared/interfaces/genre.interface';
 import { IMovieDetails } from 'src/app/shared/interfaces/movie-details.interface';
@@ -18,6 +19,7 @@ import { MoviesService } from '../movies.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class MovieDetailsComponent implements OnInit {
+  private destroy$ = new Subject<void>();
   isLoading = false;
   posterBaseUrl: string = endpoints.posterbaseUrl;
   id: string;
@@ -34,12 +36,19 @@ export class MovieDetailsComponent implements OnInit {
   spokenLanguagesNames: Array<string> = [];
   ratingFormatted: number;
   ratingConfig: RatingConfigModel;
+  ratingResponseMessage: string;
+  showToaster: boolean = false;
 
   constructor(
     private moviesService: MoviesService,
     private utilsService: UtilsService,
     private route: ActivatedRoute
   ) {}
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.ratingConfig = {
@@ -54,41 +63,44 @@ export class MovieDetailsComponent implements OnInit {
 
   getMovieDetails(id: string) {
     this.isLoading = true;
-    this.moviesService.getMovieDetails(id).subscribe({
-      next: (response) => {
-        this.isLoading = false;
-        this.movieDetails = response;
-        this.releaseDate = new Date(this.movieDetails.release_date);
-        this.runtimeFormatted =
-          this.utilsService.formatMinutesToHoursAndMinutes(
-            this.movieDetails.runtime
+    this.moviesService
+      .getMovieDetails(id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (response) => {
+          this.isLoading = false;
+          this.movieDetails = response;
+          this.releaseDate = new Date(this.movieDetails.release_date);
+          this.runtimeFormatted =
+            this.utilsService.formatMinutesToHoursAndMinutes(
+              this.movieDetails.runtime
+            );
+          this.genres = this.movieDetails.genres;
+          this.productionCompanies = this.movieDetails.production_companies;
+          this.productionCompanies.map((element) => {
+            this.productionCompaniesNames.push(element.name);
+          });
+          this.productionCountries = this.movieDetails.production_countries;
+          this.productionCountries.map((element) => {
+            this.productionCountriesNames.push(element.name);
+          });
+          this.spokenLanguages = this.movieDetails.spoken_languages;
+          this.spokenLanguages.map((element) => {
+            this.spokenLanguagesNames.push(element.english_name);
+          });
+          this.ratingFormatted = this.utilsService.roundValue(
+            this.movieDetails.vote_average,
+            1
           );
-        this.genres = this.movieDetails.genres;
-        this.productionCompanies = this.movieDetails.production_companies;
-        this.productionCompanies.map((element) => {
-          this.productionCompaniesNames.push(element.name);
-        });
-        this.productionCountries = this.movieDetails.production_countries;
-        this.productionCountries.map((element) => {
-          this.productionCountriesNames.push(element.name);
-        });
-        this.spokenLanguages = this.movieDetails.spoken_languages;
-        this.spokenLanguages.map((element) => {
-          this.spokenLanguagesNames.push(element.english_name);
-        });
-        this.ratingFormatted = this.utilsService.roundValue(
-          this.movieDetails.vote_average,
-          1
-        );
-      },
-      error: (err) => {
-        this.isLoading = false;
-        this.responseMessage = err?.error?.status_message;
-      },
-      complete: () => {
-        this.isLoading = false;
-      },
-    });
+        },
+        error: (err) => {
+          this.isLoading = false;
+          this.responseMessage = err?.error?.status_message;
+        },
+        complete: () => {
+          this.isLoading = false;
+        },
+      });
   }
 
   onMovieRate() {
@@ -97,16 +109,21 @@ export class MovieDetailsComponent implements OnInit {
         .rateMovie(this.id, this.ratingConfig.selected)
         .subscribe({
           next: (response) => {
-            console.log(response);
-            console.log(this.ratingConfig.selected);
+            this.ratingResponseMessage = response?.status_message;
+            this.showToaster = true;
           },
           error: (err) => {
-            console.log(err);
+            this.ratingResponseMessage = err?.error?.status_message;
+            this.showToaster = true;
           },
           complete: () => {
-            this.isLoading = false;
+            this.showToaster = true;
           },
         });
     }
+  }
+
+  onToasterClose() {
+    this.showToaster = false;
   }
 }

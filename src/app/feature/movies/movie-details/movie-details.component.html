@@ -3,6 +3,13 @@
     <app-loader *ngIf="isLoading"></app-loader>
   </div>
   <div *ngIf="!isLoading" class="content-wrapper">
+    <ngb-toast
+      *ngIf="showToaster"
+      [autohide]="true"
+      (hidden)="onToasterClose()"
+    >
+      {{ ratingResponseMessage }}
+    </ngb-toast>
     <div *ngIf="responseMessage" class="response-message">
       {{ responseMessage }}
     </div>
