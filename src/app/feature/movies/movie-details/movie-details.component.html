@@ -41,7 +41,13 @@
               </div>
               <div class="movie-tmdb-rating-users">
                 <img src="../../../../assets/user.png" />
-                <span>{{ movieDetails.vote_count | valueSuffix }}</span>
+                <span>
+                  {{
+                    movieDetails.vote_count <= 1099
+                      ? (movieDetails.vote_count | valueSuffix)
+                      : (movieDetails.vote_count | valueSuffix: 1)
+                  }}
+                </span>
               </div>
             </div>
           </div>
