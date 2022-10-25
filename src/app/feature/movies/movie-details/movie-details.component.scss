@@ -37,6 +37,11 @@ app-movie-details {
           border: none;
           font-weight: bold;
           color: $font-color-primary;
+          transition: background-color 0.5s;
+
+          &:hover {
+            background-color: $background-color-tertiary;
+          }
         }
       }
     }
@@ -152,6 +157,10 @@ app-movie-details {
         .movie-rate-button {
           button {
             width: 200px;
+
+            &:hover {
+              background-color: $background-color-secondary;
+            }
           }
         }
       }
