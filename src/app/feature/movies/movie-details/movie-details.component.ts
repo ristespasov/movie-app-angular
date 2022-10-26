@@ -107,6 +107,7 @@ export class MovieDetailsComponent implements OnInit {
     if (this.ratingConfig.selected) {
       this.moviesService
         .rateMovie(this.id, this.ratingConfig.selected)
+        .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: (response) => {
             this.ratingResponseMessage = response?.status_message;
